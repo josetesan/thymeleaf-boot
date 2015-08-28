@@ -1,5 +1,7 @@
 package es.ventura24.demo.web.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,6 +25,8 @@ public class UserController {
     private UserService userService;
 
     private UserValidator userValidator;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
     @Inject
     public void setUserValidator(UserValidator userValidator) {
@@ -60,11 +64,13 @@ public class UserController {
     }
 
     @RequestMapping(value="/create",method = RequestMethod.POST)
-    public String create(@Valid final Usuario usuario,final Model model, final BindingResult bindingResult) {
-        String result = "/users/all";
+    public String create(Model model,@Valid final Usuario usuario, BindingResult bindingResult) {
+        String result = "redirect:/user";
         if (bindingResult.hasErrors()) {
-            model.addAttribute("hasError",true);
-            result = "users/create";
+            bindingResult.getAllErrors()
+                    .forEach(error -> LOGGER.error(error.toString()));
+
+            result = "users/new";
         } else {
             model.addAttribute("created", true);
         }

@@ -1,5 +1,7 @@
 package es.ventura24.demo.web.user;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
@@ -10,6 +12,8 @@ import org.springframework.validation.Validator;
  */
 @Component
 public class UserValidator implements Validator {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(UserValidator.class);
 
     @Override
     public boolean supports(Class<?> clazz) {
@@ -25,14 +29,14 @@ public class UserValidator implements Validator {
             errors.rejectValue("id","id.empty");
         }
         if (StringUtils.isEmpty(usuario.getName())) {
-            errors.reject("name","name.empty");
+            errors.rejectValue("name","name.empty");
         }
 
         if (usuario.getName().equalsIgnoreCase("test")) {
-            errors.reject("invalid.name");
+            errors.rejectValue("name","invalid.name");
         }
 
-        return;
+        LOGGER.info("User has {} errors",errors.getErrorCount());
 
     }
 }
