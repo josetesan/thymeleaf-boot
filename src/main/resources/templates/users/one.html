@@ -10,6 +10,7 @@
     <ul class="list-group">
         <li><span data-th-text="${usuario.id}">1</span></li>
         <li><span data-th-text="${usuario.name}">Josete</span></li>
+        <li class="list-group-item"><span data-th-text="${#calendars.format(usuario.createDate, 'dd/MMMM/yyyy')}">14/Marzo/2014</span></li>
         <li class="list-group-item" data-th-if="${usuario.bets.size()} > 0">
             <ol  class="list-group">
                 <div data-th-each="bet : ${usuario.bets}">

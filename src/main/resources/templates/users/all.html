@@ -10,16 +10,22 @@
 <div data-th-each="usuario : ${usuarios}">
 
     <ul class="list-group">
-        <li class="list-group-item"><span data-th-text="${usuario.id}">1</span></li>
-        <li class="list-group-item"><span data-th-text="${usuario.name}">Josete</span></li>
-        <li class="list-group-item" data-th-if="${usuario.bets.size()} > 0">
-            <ol class="list-group">
-                <div data-th-each="bet : ${usuario.bets}">
-                    <li class="list-group-item"><span data-th-text="${bet.id}">1</span></li>
-                    <li class="list-group-item"><span data-th-text="${bet.product}">Euromillones</span></li>
-                    <li class="list-group-item"><span data-th-text="${#numbers.formatDecimal(bet.amount,1,2)}">14 &euro;</span></li>
-                </div>
-            </ol>
+        <li class="list-group-item">
+            <span data-th-text="${usuario.id}">1</span>|
+            <span data-th-text="${usuario.name}">Josete</span>|
+            <span data-th-text="${#calendars.format(usuario.createDate, 'dd/MMM/yyyy')}">14/03/2014</span>
+
+            <li class="list-group-item" data-th-if="${usuario.bets.size()} > 0">
+                <ol class="list-group">
+                    <div data-th-each="bet : ${usuario.bets}">
+                        <li class="list-group-item">
+                            <span data-th-text="${bet.id}">1</span>|
+                            <span data-th-text="${bet.product}">Euromillones</span>|
+                            <span data-th-text="${#numbers.formatDecimal(bet.amount,1,2)}">14 &euro;</span>
+                        </li>
+                    </div>
+                </ol>
+            </li>
         </li>
     </ul>
 </div>
