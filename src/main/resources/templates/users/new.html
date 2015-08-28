@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-th-text="#{user.title}"></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<form action="#" data-th-action="@{/user/create}" data-th-object="${usuario}" method="post">
+
+    <ul dats-th-if="${#fields.hasErrors('*')}">
+        <li data-th-each="err : ${#fields.errors('*')}" data-th-text="${err}">Input is incorrect</li>
+    </ul>
+
+    <input type="text" id="id" name="id" data-th-text="*{id}"/>
+    <label for="id">ID</label>
+    <input type="text" id="name" name="name" data-th-text="*{name}"/>
+    <label for="name">NOMBRE</label>
+</form>
+</body>
+</html>

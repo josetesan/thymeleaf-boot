@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title data-th-text="#{user.title}"></title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+</head>
+<body>
+<div data-th-if="${created}">Usuario creado !</div>
+<div data-th-each="usuario : ${usuarios}">
+
+    <ul class="list-group">
+        <li class="list-group-item"><span data-th-text="${usuario.id}">1</span></li>
+        <li class="list-group-item"><span data-th-text="${usuario.name}">Josete</span></li>
+        <li class="list-group-item" data-th-if="${usuario.bets.size()} > 0">
+            <ol class="list-group">
+                <div data-th-each="bet : ${usuario.bets}">
+                    <li class="list-group-item"><span data-th-text="${bet.id}">1</span></li>
+                    <li class="list-group-item"><span data-th-text="${bet.product}">Euromillones</span></li>
+                    <li class="list-group-item"><span data-th-text="${#numbers.formatDecimal(bet.amount,1,2)}">14 &euro;</span></li>
+                </div>
+            </ol>
+        </li>
+    </ul>
+</div>
+</body>
+</html>
