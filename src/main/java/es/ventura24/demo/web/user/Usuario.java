@@ -1,6 +1,7 @@
 package es.ventura24.demo.web.user;
 
 import es.ventura24.demo.web.bet.Bet;
+import org.springframework.stereotype.Component;
 
 import java.io.Serializable;
 import java.util.List;
@@ -9,11 +10,15 @@ import java.util.Objects;
 /**
  * Created by jsanc on 28/08/15.
  */
+@Component("usuario")
 public class Usuario implements Serializable {
 
     private Long id;
     private String name;
     private List<Bet> bets;
+
+    public Usuario() {
+    }
 
     public Usuario(Long id, String name, List<Bet> bets) {
         this.id = id;

@@ -3,6 +3,8 @@ package es.ventura24.demo.web.user;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -19,6 +21,18 @@ public class UserController {
 
 
     private UserService userService;
+
+    private UserValidator userValidator;
+
+    @Inject
+    public void setUserValidator(UserValidator userValidator) {
+        this.userValidator = userValidator;
+    }
+
+    @InitBinder
+    public void initBinder(WebDataBinder binder) {
+        binder.addValidators(userValidator);
+    }
 
     @Inject
     public UserController(final UserService userService) {
@@ -40,16 +54,20 @@ public class UserController {
 
 
     @RequestMapping(value="/create",method = RequestMethod.GET)
-    public String create() {
+    public String create(final Model model) {
+        model.addAttribute("usuario", new Usuario());
         return "users/new";
     }
 
     @RequestMapping(value="/create",method = RequestMethod.POST)
-    public String create(@Valid Usuario usuario,final Model model, final BindingResult bindingResult) {
+    public String create(@Valid final Usuario usuario,final Model model, final BindingResult bindingResult) {
+        String result = "/users/all";
         if (bindingResult.hasErrors()) {
-            // do something special
+            model.addAttribute("hasError",true);
+            result = "users/create";
+        } else {
+            model.addAttribute("created", true);
         }
-        model.addAttribute("created",true);
-        return "users/all";
+        return result;
     }
 }
