@@ -43,8 +43,8 @@
 
         <dependency>
             <groupId>javax.inject</groupId>
-            <artifactId>inject</artifactId>
-            <version>1.0</version>
+            <artifactId>javax.inject</artifactId>
+            <version>1</version>
         </dependency>
 	</dependencies>
 	
